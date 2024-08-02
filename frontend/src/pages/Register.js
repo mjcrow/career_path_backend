@@ -1,38 +1,38 @@
-// frontend/src/pages/Login.js
+// frontend/src/pages/Register.js
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../Styles.css';  // Import the CSS file
 
-const Login = () => {
+const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
-        const formData = new URLSearchParams();
-        formData.append('username', username);
-        formData.append('password', password);
-
         try {
-            const response = await axios.post('http://localhost:8000/token', formData, {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
+            const response = await axios.post('http://localhost:8000/users/', {
+                username,
+                password,
+                role: 'user'  // Default role assigned here
             });
-            localStorage.setItem('token', response.data.access_token);
-            navigate('/tasks');  // Redirect to tasks page after login
+            console.log('Registration successful:', response.data);
+            navigate('/login');  // Redirect to login page after registration
         } catch (error) {
-            console.error('Login failed', error);
+            if (error.response) {
+                console.error('Registration failed:', error.response.data);
+            } else {
+                console.error('Error:', error.message);
+            }
         }
     };
 
     return (
         <div>
-            <h2>Login</h2>
-            <form onSubmit={handleLogin}>
+            <h2>Register</h2>
+            <form onSubmit={handleRegister}>
                 <div>
                     <label>Username:</label>
                     <input
@@ -51,11 +51,10 @@ const Login = () => {
                         required
                     />
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit">Register</button>
             </form>
-            <p>Don't have an account? <Link to="/register">Register here</Link></p>  {/* Registration link */}
         </div>
     );
 };
 
-export default Login;
+export default Register;

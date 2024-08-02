@@ -1,8 +1,6 @@
-// frontend/src/components/LoginForm.js
-
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const LoginForm = () => {
     const [username, setUsername] = useState('');
@@ -10,19 +8,23 @@ const LoginForm = () => {
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-        console.log("Sending payload:", { username, password });  // Add this line
-        const response = await axios.post('http://localhost:8000/token', {
-            username,
-            password
-        });
-        localStorage.setItem('token', response.data.access_token);
-        navigate('/tasks');  // Redirect to tasks page after login
-    } catch (error) {
-        console.error('Login failed', error);
-    }
-};
+        e.preventDefault();
+        const formData = new URLSearchParams();
+        formData.append('username', username);
+        formData.append('password', password);
+
+        try {
+            const response = await axios.post('http://localhost:8000/token', formData, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            });
+            localStorage.setItem('token', response.data.access_token);
+            navigate('/tasks');  // Redirect to tasks page after login
+        } catch (error) {
+            console.error('Login failed', error);
+        }
+    };
 
     return (
         <div>
@@ -48,6 +50,7 @@ const LoginForm = () => {
                 </div>
                 <button type="submit">Login</button>
             </form>
+            <p>Don't have an account? <Link to="/register">Register here</Link></p>
         </div>
     );
 };
