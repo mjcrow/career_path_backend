@@ -30,7 +30,10 @@ const Login = () => {
     };
 
     return (
-        <div>
+        <div className="login-container">
+            <h1>Career Path</h1>
+            <p style={{ fontStyle: 'italic' }}>The shorter way to do many things is to only do one thing at a time. -Mozart</p>
+            <p>Welcome to Career Path, a task management system for learners and workers. Already a member? Please log in to continue.</p>
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
                 <div>
@@ -53,7 +56,7 @@ const Login = () => {
                 </div>
                 <button type="submit">Login</button>
             </form>
-            <p>Don't have an account? <Link to="/register">Register here</Link></p>  {/* Registration link */}
+            <p>New to career path? <Link to="/register">Register here</Link></p>  {/* Registration link */}
         </div>
     );
 };

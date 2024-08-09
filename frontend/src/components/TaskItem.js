@@ -41,7 +41,7 @@ function TaskItem({ task, onTaskUpdated, onTaskDeleted }) {
     };
 
     return (
-        <li className="task-item">
+        <li className={`task-item ${task.category.toLowerCase()}`}>
             {isEditing ? (
                 <div className="edit-task-form">
                     <input

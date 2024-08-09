@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import TaskForm from './TaskForm';
 import TaskItem from './TaskItem';
-import './TaskList.css'; // Correct CSS import
+import '../Styles.css';
 
 const TaskList = () => {
     const [tasks, setTasks] = useState([]);
+    const [sortBy, setSortBy] = useState('title');
+    const [order, setOrder] = useState('asc');
 
     useEffect(() => {
         const fetchTasks = async () => {
             const token = localStorage.getItem('token');
             try {
-                const response = await axios.get('http://localhost:8000/tasks', {
+                const response = await axios.get(`http://localhost:8000/tasks?sort_by=${sortBy}&order=${order}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -23,7 +25,7 @@ const TaskList = () => {
         };
 
         fetchTasks();
-    }, []);
+    }, [sortBy, order]);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -47,11 +49,24 @@ const TaskList = () => {
     };
 
     return (
-        <div>
-            <h2>Task List</h2>
-            <button onClick={handleLogout}>Logout</button>
+        <div className="task-list-container">
+            <div className="task-list-header">
+                <h2>Task List</h2>
+                <div className="sort-options">
+                    <label>Sort by: </label>
+                    <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                        <option value="title">Title</option>
+                        <option value="time_needed">Time Needed</option>
+                        <option value="category">Category</option>
+                    </select>
+                    <select value={order} onChange={(e) => setOrder(e.target.value)}>
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                    </select>
+                </div>
+            </div>
             <TaskForm onTaskCreated={handleTaskCreated} />
-            <ul>
+            <ul className="task-grid">
                 {tasks.map((task) => (
                     <TaskItem
                         key={task.id}
@@ -61,6 +76,7 @@ const TaskList = () => {
                     />
                 ))}
             </ul>
+            <button className="logout-button" onClick={handleLogout}>Logout</button>
         </div>
     );
 };
