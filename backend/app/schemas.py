@@ -31,6 +31,7 @@ class TaskBase(BaseModel):
     description: str
     time_needed: int
     category: str
+    priority: bool = False  # added value
 
 class TaskCreate(TaskBase):
     pass

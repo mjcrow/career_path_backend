@@ -20,9 +20,9 @@ const LoginForm = () => {
                 },
             });
             localStorage.setItem('token', response.data.access_token);
-            navigate('/tasks');  // Redirect to tasks page after login
+            navigate('/tasks');
         } catch (error) {
-            console.error('Login failed', error);
+            console.error('Sorry Login Has Failed', error);
         }
     };
 

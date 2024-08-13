@@ -5,6 +5,7 @@ import './TaskList.css';  // Import the CSS file
 function TaskItem({ task, onTaskUpdated, onTaskDeleted }) {
     const [isEditing, setIsEditing] = useState(false);
     const [updatedTask, setUpdatedTask] = useState(task);
+    const [isPriority, setIsPriority] = useState(task.priority);  // Ensure priority state is correctly initialized
 
     const handleDelete = () => {
         const token = localStorage.getItem('token');
@@ -37,11 +38,26 @@ function TaskItem({ task, onTaskUpdated, onTaskDeleted }) {
                 onTaskUpdated(response.data);
                 setIsEditing(false);
             })
-            .catch(error => console.error('There was an error updating the task!', error));
+            .catch(error => console.error('Sorry there was an error', error));
+    };
+
+    const handleSetPriority = () => {
+        const token = localStorage.getItem('token');
+        const updatedPriorityTask = { ...updatedTask, priority: !isPriority };
+        axios.put(`http://localhost:8000/tasks/${task.id}`, updatedPriorityTask, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                onTaskUpdated(response.data);
+                setIsPriority(!isPriority);
+            })
+            .catch(error => console.error('Sorry there was an error', error));
     };
 
     return (
-        <li className={`task-item ${task.category.toLowerCase()}`}>
+        <li className={`task-item ${task.category.toLowerCase()} ${isPriority ? 'priority' : ''}`}>
             {isEditing ? (
                 <div className="edit-task-form">
                     <input
@@ -77,8 +93,11 @@ function TaskItem({ task, onTaskUpdated, onTaskDeleted }) {
                     <p>{task.description}</p>
                     <p>Time Needed: {task.time_needed} minutes</p>
                     <p>Category: {task.category}</p>
-                    <button onClick={handleEditToggle}>Edit</button>
-                    <button onClick={handleDelete}>Delete</button>
+                    <div className="button-group"> {/* Wrap buttons in a div with class button-group */}
+                        <button onClick={handleEditToggle}>Edit</button>
+                        <button onClick={handleDelete}>Delete</button>
+                        <button onClick={handleSetPriority}>Set Priority</button>
+                    </div>
                 </div>
             )}
         </li>

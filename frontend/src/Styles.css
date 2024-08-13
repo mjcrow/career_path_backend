@@ -30,10 +30,8 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     min-height: 80vh;
 }
 
@@ -45,7 +43,21 @@ p {
     margin-bottom: 20px;
 }
 
-form div, .task-list-header {
+.task-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;  /* Ensure it takes the full width */
+    box-sizing: border-box;
+}
+
+.sort-options {
+    display: flex;
+    gap: 10px;
+}
+
+form div {
     margin-bottom: 15px;
     text-align: left;
 }
@@ -114,3 +126,15 @@ button:hover {
 .edit-task-form button {
     margin-right: 5px;
 }
+
+.task-item.priority h3,
+.task-item.priority p {
+    color: red;
+}
+
+.task-totals {
+    margin-bottom: 15px;
+    text-align: left;
+    font-weight: bold;
+}
+

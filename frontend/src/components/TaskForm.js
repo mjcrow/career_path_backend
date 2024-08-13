@@ -25,7 +25,7 @@ function TaskForm({ onTaskCreated }) {
                 setTimeNeeded('');
                 setCategory('');
             })
-            .catch(error => console.error('There was an error creating the task!', error));
+            .catch(error => console.error('Sorry, There was an error', error));
     };
 
     return (

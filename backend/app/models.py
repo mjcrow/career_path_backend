@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean  # Add Boolean here
 from sqlalchemy.orm import relationship
 from .database import Base
 
@@ -17,5 +17,6 @@ class Task(Base):
     description = Column(String)
     time_needed = Column(Integer)
     category = Column(String)
+    priority = Column(Boolean, default=False)  # added the priority column
     user_id = Column(Integer, ForeignKey('users.id'))
     user = relationship("User", back_populates="tasks")

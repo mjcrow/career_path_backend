@@ -14,7 +14,7 @@ function RegisterForm() {
             });
             alert('User registered successfully!');
         } catch (error) {
-            console.error('There was an error registering the user!', error);
+            console.error('Sorry, There has been an error registering', error);
         }
     };
 
