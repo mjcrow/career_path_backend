@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import TaskForm from './TaskForm';
 import TaskItem from './TaskItem';
-import '../Styles.css';
+import '../Styles.css';  // Import the CSS file
 
 const TaskList = () => {
     const [tasks, setTasks] = useState([]);
@@ -87,26 +87,24 @@ const TaskList = () => {
 
     return (
         <div className="task-list-container">
-            <div className="task-list-header">
-                <h2>Task List</h2>
-                <div className="task-totals">
-                    <p>Total Work Minutes: {totalWorkMinutes}</p>
-                    <p>Total School Minutes: {totalSchoolMinutes}</p>
-                </div>
-                <div className="sort-options">
-                    <label>Sort by: </label>
-                    <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-                        <option value="title">Title</option>
-                        <option value="time_needed">Time Needed</option>
-                        <option value="category">Category</option>
-                    </select>
-                    <select value={order} onChange={(e) => setOrder(e.target.value)}>
-                        <option value="asc">Ascending</option>
-                        <option value="desc">Descending</option>
-                    </select>
-                </div>
+            <h2 className="task-list-header">Task List</h2>
+            <div className="task-totals">
+                <p>Total Work Minutes: {totalWorkMinutes}</p>
+                <p>Total School Minutes: {totalSchoolMinutes}</p>
             </div>
             <TaskForm onTaskCreated={handleTaskCreated} />
+            <div className="sort-options">
+                <label>Sort by: </label>
+                <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                    <option value="title">Title</option>
+                    <option value="time_needed">Time Needed</option>
+                    <option value="category">Category</option>
+                </select>
+                <select value={order} onChange={(e) => setOrder(e.target.value)}>
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+            </div>
             <ul className="task-grid">
                 {tasks.map((task) => (
                     <TaskItem

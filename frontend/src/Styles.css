@@ -1,9 +1,8 @@
-/* Styles.css */
 
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: Times New Roman;
     background: linear-gradient(to right, #00c6ff, #004cff);
     min-height: 100vh;
     display: flex;
@@ -16,9 +15,9 @@ body {
     width: 300px;
     padding: 20px;
     background: white;
-    border: 1px solid #ccc;
+    border: 1px solid #bab8b8;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
     text-align: center;
 }
 
@@ -27,9 +26,9 @@ body {
     max-width: 1000px;
     padding: 20px;
     background: white;
-    border: 1px solid #ccc;
+    border: 1px solid #bab8b8;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
     display: flex;
     flex-direction: column;
     min-height: 80vh;
@@ -37,6 +36,7 @@ body {
 
 h1, h2 {
     margin-bottom: 10px;
+    text-align: center;
 }
 
 p {
@@ -48,13 +48,13 @@ p {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    width: 100%;  /* Ensure it takes the full width */
+    width: 100%;
     box-sizing: border-box;
 }
 
 .sort-options {
     display: flex;
-    gap: 10px;
+    gap: 18px;
 }
 
 form div {
@@ -85,7 +85,7 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #50b554
 }
 
 .logout-button {
@@ -105,7 +105,7 @@ button:hover {
 
 .task-item {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #bfbbbb;
     border-radius: 5px;
     list-style: none;
     background-color: white;
@@ -133,8 +133,60 @@ button:hover {
 }
 
 .task-totals {
-    margin-bottom: 15px;
+    margin-bottom: 16px;
     text-align: left;
     font-weight: bold;
 }
 
+.task-form {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.task-form input,
+.task-form select {
+    display: block;
+    width: calc(100% - 12px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #bfbbbb;
+    border-radius: 4px;
+}
+
+.task-form button {
+    padding: 10px 20px;
+    background-color: #0f82fc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.task-form button:hover {
+    background-color: #065ebd;
+}
+
+.task-item {
+    margin-bottom: 15px;
+    border: 1px solid #0a0a0a
+}
+
+.edit-task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-form input,
+.task-form select,
+.task-form button {
+    margin-bottom: 10px;
+}
+
+.button-group button {
+    margin-bottom: 10px;
+}

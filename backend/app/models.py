@@ -2,6 +2,8 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Boolean  # Add Boole
 from sqlalchemy.orm import relationship
 from .database import Base
 
+
+# define models for user and tasks set relationships for sql, ADDED define priority setting
 class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True, index=True)

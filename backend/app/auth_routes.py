@@ -5,12 +5,15 @@ from . import models, schemas, database
 from .hashing import Hash
 from .token import create_access_token, verify_token  # Ensure verify_token is imported
 
+# create router instance
 router = APIRouter(
     tags=['Authentication']
 )
-
+# retrieve and verify tokens
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
+
+# provide SQLA session to interact with db
 def get_db():
     db = database.SessionLocal()
     try:
@@ -18,6 +21,8 @@ def get_db():
     finally:
         db.close()
 
+
+# login endpoint take query for user, hash verify stored password, create and send token
 @router.post('/token', response_model=schemas.Token)
 def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.username == request.username).first()
@@ -28,6 +33,8 @@ def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(
     access_token = create_access_token(data={"sub": user.username})
     return {"access_token": access_token, "token_type": "bearer"}
 
+
+# user creation endpoint take user schema, hash and store password, store and create user
 @router.post('/users/', response_model=schemas.User)
 def create_user(request: schemas.UserCreate, db: Session = Depends(get_db)):
     hashed_password = Hash.bcrypt(request.password)
@@ -37,6 +44,8 @@ def create_user(request: schemas.UserCreate, db: Session = Depends(get_db)):
     db.refresh(new_user)
     return new_user
 
+
+# use token, verify token, query db, error, return user
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -49,6 +58,8 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
         raise credentials_exception
     return user
 
+
+# current user endpoint, return authenticated user, return user object
 @router.get('/users/me', response_model=schemas.User)
 def read_users_me(current_user: models.User = Depends(get_current_user)):
     return current_user

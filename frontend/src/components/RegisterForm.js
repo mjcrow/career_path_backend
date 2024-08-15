@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react';//add state to components
 import axios from 'axios';
 
+//initialize and update state variables
 function RegisterForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    //register handler prevent refresh, handle token
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -12,12 +14,13 @@ function RegisterForm() {
                 username,
                 password,
             });
-            alert('User registered successfully!');
+            alert('user registered');
         } catch (error) {
             console.error('Sorry, There has been an error registering', error);
         }
     };
 
+    //register form
     return (
         <form onSubmit={handleSubmit}>
             <input

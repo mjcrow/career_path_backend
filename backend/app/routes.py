@@ -6,11 +6,13 @@ from sqlalchemy import asc, desc
 from . import models, schemas, database
 from .auth_routes import get_current_user
 
+# create router add prefix and tag
 router = APIRouter(
     prefix="/tasks",
     tags=["Tasks"]
 )
 
+# add database session for routes
 def get_db():
     db = database.SessionLocal()
     try:
@@ -18,6 +20,8 @@ def get_db():
     finally:
         db.close()
 
+
+# create task bind to schema, handle db session
 @router.post("/", response_model=schemas.Task)
 def create_task(task: schemas.TaskCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
     db_task = models.Task(**task.dict(), user_id=current_user.id)
@@ -26,6 +30,8 @@ def create_task(task: schemas.TaskCreate, db: Session = Depends(get_db), current
     db.refresh(db_task)
     return db_task
 
+
+# get multiple tasks, sort by user
 @router.get("/", response_model=List[schemas.Task])
 def read_tasks(skip: int = 0, limit: int = 10, sort_by: str = 'title', order: str = 'asc', db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
     if order == 'asc':
@@ -34,6 +40,7 @@ def read_tasks(skip: int = 0, limit: int = 10, sort_by: str = 'title', order: st
         tasks = db.query(models.Task).filter(models.Task.user_id == current_user.id).order_by(desc(getattr(models.Task, sort_by))).offset(skip).limit(limit).all()
     return tasks
 
+# get single task, sort ny user
 @router.get("/{task_id}", response_model=schemas.Task)
 def read_task(task_id: int, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
     task = db.query(models.Task).filter(models.Task.id == task_id, models.Task.user_id == current_user.id).first()
@@ -41,6 +48,7 @@ def read_task(task_id: int, db: Session = Depends(get_db), current_user: models.
         raise HTTPException(status_code=404, detail="Task not found")
     return task
 
+# get task, update task, return updated task
 @router.put("/{task_id}", response_model=schemas.Task)
 def update_task(task_id: int, task: schemas.TaskCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
     db_task = db.query(models.Task).filter(models.Task.id == task_id, models.Task.user_id == current_user.id).first()
@@ -52,6 +60,8 @@ def update_task(task_id: int, task: schemas.TaskCreate, db: Session = Depends(ge
     db.refresh(db_task)
     return db_task
 
+
+# get task, delete task
 @router.delete("/{task_id}")
 def delete_task(task_id: int, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
     db_task = db.query(models.Task).filter(models.Task.id == task_id, models.Task.user_id == current_user.id).first()
@@ -59,4 +69,4 @@ def delete_task(task_id: int, db: Session = Depends(get_db), current_user: model
         raise HTTPException(status_code=404, detail="Task not found")
     db.delete(db_task)
     db.commit()
-    return {"detail": "Task deleted"}
+    return {"detail": "deleted"}

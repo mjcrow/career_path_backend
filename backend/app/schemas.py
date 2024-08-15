@@ -1,7 +1,7 @@
-# backend/app/schemas.py
-
 from pydantic import BaseModel
 
+
+# user schemas base into password and id for user creation
 class UserBase(BaseModel):
     username: str
     role: str
@@ -15,6 +15,8 @@ class User(UserBase):
     class Config:
         from_attributes = True
 
+
+# authentication schemas structure token, login data, token data
 class Token(BaseModel):
     access_token: str
     token_type: str
@@ -26,6 +28,8 @@ class Login(BaseModel):
 class TokenData(BaseModel):
     username: str
 
+
+# task schemas structure task, create new task, user task id
 class TaskBase(BaseModel):
     title: str
     description: str

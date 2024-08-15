@@ -1,7 +1,10 @@
 from passlib.context import CryptContext
 
+
+# create instance select algorithm, update old algo
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+# hash password with selected algo, verify
 class Hash:
     @staticmethod
     def bcrypt(password: str):

@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; //add state for components
 import axios from 'axios';
-import './TaskForm.css';  // Import the CSS file
+import '../Styles.css';  //new css
 
+//initialize and update state variables
 function TaskForm({ onTaskCreated }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [timeNeeded, setTimeNeeded] = useState('');
     const [category, setCategory] = useState('');
 
+    //task handler prevent refresh, retrieve authorization token, create new task
     const handleSubmit = (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
@@ -28,6 +30,7 @@ function TaskForm({ onTaskCreated }) {
             .catch(error => console.error('Sorry, There was an error', error));
     };
 
+    //task form onchange update state
     return (
         <form className="task-form" onSubmit={handleSubmit}>
             <input
