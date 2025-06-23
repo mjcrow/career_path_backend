@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
-from . import schemas
+import schemas
 
 # configure variables, leave default for now
 SECRET_KEY = "your_secret_key"  # Change this to a secure secret key

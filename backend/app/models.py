@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean  # Add Boolean here
 from sqlalchemy.orm import relationship
-from .database import Base
+from database import Base
 
 
 # define models for user and tasks set relationships for sql, ADDED define priority setting
