@@ -6,7 +6,7 @@ import models
 import schemas
 import database
 from hashing import Hash
-from .auth_token import create_access_token, verify_token
+from auth_token import create_access_token, verify_token
 
 
 # create router instance
