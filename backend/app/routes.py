@@ -3,11 +3,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 from sqlalchemy import asc, desc
-import models
-import schemas
-import database
-from auth_routes import get_current_user
-
+from . import models, schemas, database
+from .auth_routes import get_current_user
 
 # create router add prefix and tag
 router = APIRouter(
