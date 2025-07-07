@@ -1,16 +1,27 @@
-# This is a sample Python script.
+# backend/app/main.py
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from .database import engine
+from . import models
+from .routes import router as task_router
+from .auth_routes import router as auth_router
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# create db tables, bind models to db
+models.Base.metadata.create_all(bind=engine)
 
+# create instance
+app = FastAPI()
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# add cors configuration allow all origins, methods, headers
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
+# include routers one for tasks, one for user info
+app.include_router(task_router)
+app.include_router(auth_router)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
