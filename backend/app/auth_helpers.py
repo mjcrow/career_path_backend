@@ -3,7 +3,8 @@ from jose import JWTError, jwt
 from . import schemas
 
 # configure variables, leave default for now
-SECRET_KEY = "your_secrgit add .et_key"  # Change this to a secure secret key
+# SECRET_KEY = "your_secrgit add .et_key"  # Change this to a secure secret key
+SECRET_KEY = "your_secret_key"  # Ideally pull this from an environment variable
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 

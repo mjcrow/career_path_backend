@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from . import models, schemas, database
 from .hashing import Hash
-from .token import create_access_token, verify_token  # Ensure verify_token is imported
+from .auth_helpers import create_access_token, verify_token  # Ensure verify_token is imported
 
 # create router instance
 router = APIRouter(
