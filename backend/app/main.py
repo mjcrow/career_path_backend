@@ -1,10 +1,11 @@
 # backend/app/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .database import engine
-from . import models
-from .routes import router as task_router
-from .auth_routes import router as auth_router
+from app.database import engine
+from app import models
+from app.routes import router as task_router
+from app.auth_routes import router as auth_router
+
 
 # create db tables, bind models to db
 models.Base.metadata.create_all(bind=engine)
