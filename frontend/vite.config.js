@@ -1,24 +1,19 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
   esbuild: {
     loader: 'jsx',
-    include: /src\/.*\.(js|jsx)$/, // ⬅️ Includes .jsx files
+    include: /src\/.*\.(js|jsx)$/,
   },
   optimizeDeps: {
+    include: ['react-router-dom'], // ⬅️ Force prebundle this
     esbuildOptions: {
       loader: {
         '.js': 'jsx',
-        '.jsx': 'jsx', // ⬅️ jsx extension
+        '.jsx': 'jsx',
       },
-    },
-  },
-  resolve: {
-    alias: {
-      'react-dom/client': path.resolve(__dirname, 'node_modules/react-dom/client.js'),
     },
   },
 });
