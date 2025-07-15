@@ -18,7 +18,11 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['react-dom/client'], // ⬅️ Add this line
+      external: [
+        'react-dom/client',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
+      ],
     },
   },
 });
