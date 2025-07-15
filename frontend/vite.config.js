@@ -8,12 +8,17 @@ export default defineConfig({
     include: /src\/.*\.(js|jsx)$/,
   },
   optimizeDeps: {
-    include: ['react-router-dom'], // ⬅️ Force prebundle this
+    include: ['react-dom/client'],
     esbuildOptions: {
       loader: {
         '.js': 'jsx',
         '.jsx': 'jsx',
       },
+    },
+  },
+  build: {
+    rollupOptions: {
+      external: ['react-dom/client'], // ⬅️ Add this line
     },
   },
 });
