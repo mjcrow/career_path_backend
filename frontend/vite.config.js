@@ -16,15 +16,20 @@ export default defineConfig({
       },
     },
   },
+  resolve: {
+    alias: {
+      'react-router': false
+    }
+  },
   build: {
-  rollupOptions: {
-    external: [
-      'react',
-      'react-dom',
-      'react-dom/client',
-      'react/jsx-runtime',
-      'react/jsx-dev-runtime'
-    ],
+    rollupOptions: {
+      external: [
+        'react',
+        'react-dom',
+        'react-dom/client',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime'
+      ],
     },
   },
 });
