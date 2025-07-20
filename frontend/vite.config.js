@@ -18,7 +18,6 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'react-router': false
     }
   },
   build: {
