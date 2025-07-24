@@ -1,16 +1,16 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-import os
 
-# Load DB connection from environment
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
 
-# Create engine — no connect_args needed for PostgreSQL
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+# db location
+SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
 
-# Create session — disables autocommit and autoflush, just like before
+# create db set flag
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+
+# create and bind session, disable auto commit and changes
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Base class for ORM models
+# create base, allow for table creation
 Base = declarative_base()
