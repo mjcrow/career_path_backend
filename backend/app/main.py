@@ -16,11 +16,13 @@ app = FastAPI()
 # add cors configuration allow all origins, methods, headers
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://career-path-frontend-c7y6.onrender.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
 
 # include routers one for tasks, one for user info
 app.include_router(task_router)
