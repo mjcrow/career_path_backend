@@ -15,6 +15,9 @@ class User(UserBase):
     class Config:
         from_attributes = True
 
+        orm_mode = True         # Required for FastAPI response_model compatibility
+
+
 
 # authentication schemas structure token, login data, token data
 class Token(BaseModel):
