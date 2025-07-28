@@ -15,7 +15,7 @@ const TaskList = () => {
         const fetchTasks = async () => {
             const token = localStorage.getItem('token');
             try {
-                const response = await axios.get(`https://career-path-backend-0qxd.onrender.com/tasks?sort_by=${sortBy}&order=${order}`, {
+                const response = await axios.get(`https://career-path-backend-0qxd.onrender.com/tasks/?sort_by=${sortBy}&order=${order}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
