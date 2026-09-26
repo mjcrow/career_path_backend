@@ -4,7 +4,10 @@ from sqlalchemy.orm import Session
 from typing import List
 from sqlalchemy import asc, desc
 from . import models, schemas, database
-from .auth_routes import get_current_user
+from backend.app.auth_routes import get_current_user
+
+# currently, app is only tasks 
+# consider /routes folder for increased versatility ex. reminders projects
 
 # create router add prefix and tag
 router = APIRouter(
@@ -70,9 +73,4 @@ def delete_task(task_id: int, db: Session = Depends(get_db), current_user: model
     db.delete(db_task)
     db.commit()
     return {"detail": "deleted"}
-
-@router.get("/check-testuser")
-def check_testuser(db: Session = Depends(get_db)):
-    user = db.query(models.User).filter(models.User.username == "testuser").first()
-    return {"user_exists": bool(user)}
 
